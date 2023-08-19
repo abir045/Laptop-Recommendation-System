@@ -15,7 +15,7 @@ const LaptopRecommendation = () => {
     useEffect(()=> {
      
         async function fetchLaptops ()  {
-            const response = await fetch('./asusLaptopsRyansDetails.json')
+            const response = await fetch('../../../asusLaptopsRyansDetails.json')
             const data = await response.json()
             setLaptops(data)
             setTotalPages(Math.ceil(data.length / itemsPerPage))
