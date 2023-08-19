@@ -1,0 +1,125 @@
+import React, {useEffect, useState} from 'react'
+import Laptop from './Laptop';
+import ReactPaginate from 'react-paginate';
+
+const LaptopRecommendation = () => {
+    const [laptops, setLaptops] = useState([]);
+    const [display, setDisplay] = useState('')
+    const [ram, setRam] = useState('')
+    const [storage, setStorage] = useState('') ;
+    const [currentPage, setCurrentPage] = useState(0)
+    const [totalPages, setTotalPages] = useState(0)
+    const itemsPerPage = 15
+     
+
+    useEffect(()=> {
+     
+        async function fetchLaptops ()  {
+            const response = await fetch('./asusLaptopsRyansDetails.json')
+            const data = await response.json()
+            setLaptops(data)
+            setTotalPages(Math.ceil(data.length / itemsPerPage))
+        }
+       fetchLaptops();
+
+    }, [display,ram,storage])
+    
+     const startIndex = currentPage * itemsPerPage;
+     const endIndex = startIndex + itemsPerPage;
+     const subset = laptops.slice(startIndex, endIndex)
+    
+     const handlePageChange = (selectedPage) => {
+        setCurrentPage(selectedPage.selected)
+     }
+
+      
+    const handleChange = (e) => {
+        const {name, value } = e.target
+
+        switch(name) {
+            case 'display':
+                setDisplay(value);
+                break;
+            case 'ram': 
+                setRam(value);
+                break;
+            case 'storage':
+                setStorage(value);
+                break;        
+        }
+    }
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const filteredLaptops = laptops.filter((laptop) => {
+         const meetsDisplay = display === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(display) )
+        
+        
+        // Extract numerical value from price
+         const meetsRAM = ram === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(ram)); // Check if any description line contains the RAM
+         const meetsStorage = storage === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(storage)); // Check if any description line contains the storage
+            
+            // console.log(meetsBudget)
+            // console.log(meetsRAM)
+            return  meetsDisplay && meetsRAM && meetsStorage;
+
+        //    return meetsBudget
+        })
+
+        setLaptops(filteredLaptops) 
+        // setDisplay('')
+        // setRam('')
+        // setStorage('')
+    }
+
+    
+
+
+  return (
+    <div className='flex flex-col justify-center my-[5%] items-center'>
+        
+        <h1 className='font-bold mb-10'>Laptop Recommendation for Asus from Ryans & Startech </h1>
+        <form onSubmit={handleSubmit} className='flex space-x-6 mb-[5%]'>
+         
+        <label>Display</label>
+        <input type='number' value={display} name='display' onChange={handleChange} />
+        <label>RAM</label>
+        <input type='text' value={ram} name='ram' onChange={handleChange} />
+        <label>Storage</label>
+        <input type='text' value={storage} name='storage' onChange={handleChange} />
+
+        {/* <button type='submit'>Recommend</button> */}
+        <button type="sumbit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
+
+
+        </form>
+        
+        
+        <div className='grid  md:grid-cols-3 gap-5'>
+         {/* {laptops.map((laptop)=> (
+            <Laptop key={laptop.url} laptop={laptop} />
+         ))} */}
+         
+         {
+            subset.map((item) => (
+                <Laptop key={item.url} item={item}  />
+            ) )
+         }
+
+         
+
+        </div>
+
+        <ReactPaginate
+         className='flex space-x-3'
+         pageCount={totalPages}
+         onPageChange={handlePageChange}
+         forcePage={currentPage}
+         />
+        
+        </div>
+  )
+}
+
+export default LaptopRecommendation
