@@ -80,14 +80,17 @@ const LaptopRecommendation = () => {
     <div className='flex flex-col justify-center my-[5%] items-center'>
         
         <h1 className='font-bold text-center mb-10 p-5'>Laptop Recommendation for Asus from Ryans & Startech </h1>
+        
+        <q className='text-sm my-3 italic'>Please input display, ram and storage , follow the placeholder pattern </q>
+        
         <form onSubmit={handleSubmit} className='flex flex-col space-y-5 items-center md:flex md:space-x-6 mb-[5%]'>
          
         <label>Display</label>
-        <input type='number' value={display} name='display' onChange={handleChange} />
+        <input type='number' value={display} name='display' onChange={handleChange} placeholder='15....' />
         <label>RAM</label>
-        <input type='text' value={ram.toLowerCase()} name='ram' onChange={handleChange} />
+        <input type='text' value={ram.toLowerCase()} name='ram' onChange={handleChange} placeholder='8gb....' />
         <label>Storage</label>
-        <input type='text' value={storage.toLowerCase()} name='storage' onChange={handleChange} />
+        <input type='text' value={storage.toLowerCase()} name='storage' onChange={handleChange} placeholder='1tb....' />
 
         {/* <button type='submit'>Recommend</button> */}
         <button type="sumbit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
@@ -110,7 +113,7 @@ const LaptopRecommendation = () => {
         </div>
 
         <ReactPaginate
-         className='flex space-x-3'
+         className='flex space-x-3 my-5'
          pageCount={totalPages}
          onPageChange={handlePageChange}
          forcePage={currentPage}
