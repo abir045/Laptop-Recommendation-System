@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Laptop from './Laptop';
 import ReactPaginate from 'react-paginate';
+// import products from '../../asusLaptopsRyansDetails.json'
 
 const LaptopRecommendation = () => {
     const [laptops, setLaptops] = useState([]);
