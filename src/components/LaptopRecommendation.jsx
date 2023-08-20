@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Laptop from './Laptop';
 import ReactPaginate from 'react-paginate';
-// import products from '../../asusLaptopsRyansDetails.json'
+//  import products from '../assets/asusLaptopsRyansDetails.json'
 
 const LaptopRecommendation = () => {
     const [laptops, setLaptops] = useState([]);
@@ -16,7 +16,7 @@ const LaptopRecommendation = () => {
     useEffect(()=> {
      
         async function fetchLaptops ()  {
-            const response = await fetch('../../asusLaptopsRyansDetails.json')
+            const response = await fetch('./asusLaptopsRyansDetails.json')
             const data = await response.json()
             setLaptops(data)
             setTotalPages(Math.ceil(data.length / itemsPerPage))
@@ -61,8 +61,7 @@ const LaptopRecommendation = () => {
          const meetsRAM = ram === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(ram)); // Check if any description line contains the RAM
          const meetsStorage = storage === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(storage)); // Check if any description line contains the storage
             
-            // console.log(meetsBudget)
-            // console.log(meetsRAM)
+           
             return  meetsDisplay && meetsRAM && meetsStorage;
 
         //    return meetsBudget
@@ -98,9 +97,7 @@ const LaptopRecommendation = () => {
         
         
         <div className='grid  grid-cols-1 md:grid-cols-3 gap-5'>
-         {/* {laptops.map((laptop)=> (
-            <Laptop key={laptop.url} laptop={laptop} />
-         ))} */}
+        
          
          {
             subset.map((item) => (
