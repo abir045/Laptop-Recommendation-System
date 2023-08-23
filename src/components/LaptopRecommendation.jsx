@@ -133,17 +133,30 @@ const LaptopRecommendation = () => {
         
         <form onSubmit={handleSubmit} className='flex flex-col space-y-5 items-center md:flex md:space-x-6 mb-[5%]'>
          
-        <label>Display</label>
-        <input type='number' value={display} name='display' onChange={handleChange} placeholder='15....' />
+        
+        {/* <input type='number' value={display} name='display' onChange={handleChange} placeholder='15....' /> */}
         <label>RAM</label>
         <input type='text' value={ram.toLowerCase()} name='ram' onChange={handleChange} placeholder='8gb....' />
         <label>Storage</label>
         <input type='text' value={storage.toLowerCase()} name='storage' onChange={handleChange} placeholder='1tb....' />
 
+
+        <label>Display</label>
+       <select
+       value={display}
+       onChange={handleChange}
+       name='display'
+       >
         
+        <option value="14">14 </option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+
+
+       </select>
        
          
-
+       <label>Vendor</label>
         <select
        value={filteredVendor}
        onChange={
