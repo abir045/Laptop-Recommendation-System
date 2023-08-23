@@ -8,9 +8,10 @@ const LaptopRecommendation = () => {
     const [display, setDisplay] = useState('')
     const [ram, setRam] = useState('')
     const [storage, setStorage] = useState('') ;
-    const [currentPage, setCurrentPage] = useState(0)
-    const [totalPages, setTotalPages] = useState(0)
-    const itemsPerPage = 15
+    const [currentPage, setCurrentPage] = useState(null)
+    const [totalPages, setTotalPages] = useState(null)
+    const itemsPerPage = 10
+    const [filteredVendor,setFilteredVendor] = useState("")
      
 
     useEffect(()=> {
@@ -23,9 +24,11 @@ const LaptopRecommendation = () => {
         }
        fetchLaptops();
 
-    }, [display,ram,storage])
+    }, [display,ram,storage,filteredVendor])
+
     
-     const startIndex = currentPage * itemsPerPage;
+     
+    const startIndex = currentPage * itemsPerPage;
      const endIndex = startIndex + itemsPerPage;
      const subset = laptops.slice(startIndex, endIndex)
     
@@ -46,9 +49,13 @@ const LaptopRecommendation = () => {
                 break;
             case 'storage':
                 setStorage(value);
-                break;        
+                break;   
+                   
         }
     }
+
+
+     
 
 
     const handleSubmit = async (event) => {
@@ -60,10 +67,12 @@ const LaptopRecommendation = () => {
         // Extract numerical value from price
          const meetsRAM = ram === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(ram)); // Check if any description line contains the RAM
          const meetsStorage = storage === '' || laptop.desc.some(descLine => descLine.toLowerCase().includes(storage)); // Check if any description line contains the storage
-            
+         
+         //vendor
+         const meetsVendor =  filteredVendor === '' || laptop.url.toString().includes(filteredVendor); 
             
            
-            return  meetsDisplay && meetsRAM && meetsStorage;
+            return  meetsDisplay && meetsRAM && meetsStorage && meetsVendor
 
         
         })
@@ -73,6 +82,45 @@ const LaptopRecommendation = () => {
         
     }
 
+
+    // const  handleFilter = async (event) => {
+    //        event.preventDefault()
+           
+           
+              
+    //        const originalLaptops = [...laptops];
+           
+
+
+    //        const filteredLaptops =   originalLaptops.filter((laptop) => {
+           
+    //         const meetsVendor =  filteredVendor === '' || laptop.url.toString().includes(filteredVendor);
+
+            
+            
+    //          return meetsVendor 
+
+             
+
+    //     }) 
+    //     console.log("Filtered laptops:", filteredLaptops);
+    //     console.log("laptops:", laptops); 
+
+        
+    //     setLaptops(filteredLaptops)
+        
+
+         
+        
+    // }
+
+    const resetFilter = () => {
+        setLaptops(laptops); // Reset to the original list
+        setFilteredVendor(''); // Also reset any filter criteria, if applicable
+    };
+
+
+    
     
 
 
@@ -92,26 +140,60 @@ const LaptopRecommendation = () => {
         <label>Storage</label>
         <input type='text' value={storage.toLowerCase()} name='storage' onChange={handleChange} placeholder='1tb....' />
 
-        {/* <button type='submit'>Recommend</button> */}
-        <button type="submit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
+        
+       
+         
 
+        <select
+       value={filteredVendor}
+       onChange={
+        (e) => { 
+            setFilteredVendor(e.target.value);
+            
+        } 
+    }
+       className="custom-select"
+       aria-label="Filter By Vendor"
+       name='filteredVendor'
+    >
+   
+   <option value="">All Vendors</option>
+   <option value="ryanscomputers">Ryans Computers</option>
+   <option value="startech">Startech</option>
+   
+   </select> 
+
+
+   <button type="submit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
 
         </form>
-        
-        
+       
+       <div className='flex space-x-5 justify-between'>
+
+       
+
+       {/* <button className='my-5 px-5 py-2 bg-gray-700 text-white rounded-lg' onClick={handleFilterStartech}> Filter By Startech </button> */}
+       
+       </div>
+
+    
+    
+   {/* <button
+    
+    className='my-5 px-5 py-2 bg-gray-700 text-white rounded-lg'
+    onClick={handleFilter}> Filter  </button> */}
+
+    {/* <button onClick={}>Reset Filter</button> */}
+
         <div className='grid  grid-cols-1 md:grid-cols-3 gap-5'>
-        
-         
-         {
+
+        {
             subset.map((item) => (
                 <Laptop key={item.url} item={item}  />
             ) )
          }
 
         
-
-         
-
         </div>
 
         <ReactPaginate
