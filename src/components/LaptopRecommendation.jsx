@@ -83,13 +83,13 @@ const LaptopRecommendation = () => {
 
 
   return (
-    <div className='flex flex-col justify-center my-[5%] items-center'>
+    <div className='flex flex-col  justify-center my-[5%] items-center mx-[5%s]'>
         
     <h1 className='font-bold text-center text-4xl mb-10 p-5'>Laptop Recommendation for Asus from Ryans & Startech </h1>
         
         <q className='text-xs my-3 text-center italic'>Please input display, ram and storage , every time you change an input you have to click the recommend button </q>
         
-        <form onSubmit={handleSubmit} className='flex  space-x-5 my-5 items-center md:flex md:space-x-6 mb-[5%]'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-5 md:justify-center  md:flex-row  md:space-x-3 my-5 items-center   mb-[5%]'>
          
 
        <label>Please choose  <span className='font-bold tracking-wider uppercase '>Storage...</span></label>
