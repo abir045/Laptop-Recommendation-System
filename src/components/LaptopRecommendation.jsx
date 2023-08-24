@@ -28,7 +28,7 @@ const LaptopRecommendation = () => {
 
     
      
-    const startIndex = currentPage * itemsPerPage;
+     const startIndex = currentPage * itemsPerPage;
      const endIndex = startIndex + itemsPerPage;
      const subset = laptops.slice(startIndex, endIndex)
     
@@ -55,8 +55,6 @@ const LaptopRecommendation = () => {
     }
 
 
-     
-
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -79,6 +77,7 @@ const LaptopRecommendation = () => {
 
         setLaptops(filteredLaptops) 
         setTotalPages(Math.ceil((filteredLaptops.length / itemsPerPage)))
+        setCurrentPage(0)
         
     }
 
@@ -88,9 +87,9 @@ const LaptopRecommendation = () => {
         
     <h1 className='font-bold text-center text-4xl mb-10 p-5'>Laptop Recommendation for Asus from Ryans & Startech </h1>
         
-        <q className='text-sm my-3 italic'>Please input display, ram and storage , every time you change an input you have to click the recommend button </q>
+        <q className='text-xs my-3 text-center italic'>Please input display, ram and storage , every time you change an input you have to click the recommend button </q>
         
-        <form onSubmit={handleSubmit} className='flex flex-col space-y-5 items-center md:flex md:space-x-6 mb-[5%]'>
+        <form onSubmit={handleSubmit} className='flex  space-x-5 my-5 items-center md:flex md:space-x-6 mb-[5%]'>
          
 
        <label>Please choose  <span className='font-bold tracking-wider uppercase '>Storage...</span></label>
