@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Laptop from './Laptop';
 import ReactPaginate from 'react-paginate';
-//  import products from '../assets/asusLaptopsRyansDetails.json'
+
 
 const LaptopRecommendation = () => {
     const [laptops, setLaptops] = useState([]);
@@ -10,7 +10,7 @@ const LaptopRecommendation = () => {
     const [storage, setStorage] = useState('') ;
     const [currentPage, setCurrentPage] = useState(null)
     const [totalPages, setTotalPages] = useState(null)
-    const itemsPerPage = 10
+    const itemsPerPage = 15
     const [filteredVendor,setFilteredVendor] = useState("")
      
 
@@ -83,65 +83,50 @@ const LaptopRecommendation = () => {
     }
 
 
-    // const  handleFilter = async (event) => {
-    //        event.preventDefault()
-           
-           
-              
-    //        const originalLaptops = [...laptops];
-           
-
-
-    //        const filteredLaptops =   originalLaptops.filter((laptop) => {
-           
-    //         const meetsVendor =  filteredVendor === '' || laptop.url.toString().includes(filteredVendor);
-
-            
-            
-    //          return meetsVendor 
-
-             
-
-    //     }) 
-    //     console.log("Filtered laptops:", filteredLaptops);
-    //     console.log("laptops:", laptops); 
-
-        
-    //     setLaptops(filteredLaptops)
-        
-
-         
-        
-    // }
-
-    const resetFilter = () => {
-        setLaptops(laptops); // Reset to the original list
-        setFilteredVendor(''); // Also reset any filter criteria, if applicable
-    };
-
-
-    
-    
-
-
   return (
     <div className='flex flex-col justify-center my-[5%] items-center'>
         
-    <h1 className='font-bold text-center mb-10 p-5'>Laptop Recommendation for Asus from Ryans & Startech </h1>
+    <h1 className='font-bold text-center text-4xl mb-10 p-5'>Laptop Recommendation for Asus from Ryans & Startech </h1>
         
-        <q className='text-sm my-3 italic'>Please input display, ram and storage , follow the placeholder pattern </q>
+        <q className='text-sm my-3 italic'>Please input display, ram and storage , every time you change an input you have to click the recommend button </q>
         
         <form onSubmit={handleSubmit} className='flex flex-col space-y-5 items-center md:flex md:space-x-6 mb-[5%]'>
          
+
+       <label>Please choose  <span className='font-bold tracking-wider uppercase '>Storage...</span></label>
+       <select
+       value={storage}
+       onChange={handleChange}
+       name='storage'
+       >
         
-        {/* <input type='number' value={display} name='display' onChange={handleChange} placeholder='15....' /> */}
-        <label>RAM</label>
-        <input type='text' value={ram.toLowerCase()} name='ram' onChange={handleChange} placeholder='8gb....' />
-        <label>Storage</label>
-        <input type='text' value={storage.toLowerCase()} name='storage' onChange={handleChange} placeholder='1tb....' />
+        <option value="512gb"> 512  GB </option>
+        <option value="1tb">   1 TB </option>
+        <option value="2tb">   2 TB   </option>
 
 
-        <label>Display</label>
+       </select>
+
+
+       {/* ram */}
+       <label>Please choose <span className='font-bold tracking-wider uppercase '>RAM...</span></label>
+       <select
+       value={ram}
+       onChange={handleChange}
+       name='ram'
+       >
+        
+        <option value="4gb"> 4  GB </option>
+        <option value="8gb"> 8  GB </option>
+        <option value="16gb">16 GB   </option>
+
+
+       </select>
+
+       <label>Please choose <span className='font-bold tracking-wider uppercase '>Display ...</span>in inch</label>
+
+        {/* diaplay */}
+       
        <select
        value={display}
        onChange={handleChange}
@@ -155,8 +140,9 @@ const LaptopRecommendation = () => {
 
        </select>
        
+       <label>Please choose <span className='font-bold tracking-wider uppercase '>Vendor ...</span></label>
          
-       <label>Vendor</label>
+       
         <select
        value={filteredVendor}
        onChange={
@@ -177,26 +163,10 @@ const LaptopRecommendation = () => {
    </select> 
 
 
-   <button type="submit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
+   <button type="submit" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-lg px-7 py-2.5 mr-2 mb-2  dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Recommend</button>
 
         </form>
        
-       <div className='flex space-x-5 justify-between'>
-
-       
-
-       {/* <button className='my-5 px-5 py-2 bg-gray-700 text-white rounded-lg' onClick={handleFilterStartech}> Filter By Startech </button> */}
-       
-       </div>
-
-    
-    
-   {/* <button
-    
-    className='my-5 px-5 py-2 bg-gray-700 text-white rounded-lg'
-    onClick={handleFilter}> Filter  </button> */}
-
-    {/* <button onClick={}>Reset Filter</button> */}
 
         <div className='grid  grid-cols-1 md:grid-cols-3 gap-5'>
 
