@@ -1,17 +1,18 @@
-
 // import './App.css'
+import React from "react";
 
-import LaptopRecommendation from './components/LaptopRecommendation'
+import LaptopRecommendation from "./components/LaptopRecommendation";
 
 function App() {
-  
-
   return (
     <>
       <LaptopRecommendation />
-        
     </>
-  )
+  );
 }
 
-export default App
+// App.propTypes = {
+//   Children: React.propTypes.node,
+// };
+
+export default App;
